@@ -28,28 +28,28 @@ con = redis.Redis(connection_pool=pool)
 def redis_string():
     ##redis操作string类型
     #增
-    print(con.set('num', '3'))  # string类型的插入键值对,参数key，value；返回true或False
-    print(con.setex('name',3,'xiaobai')) # 设置一个有时间的键值对,返回true或false
-    print(con.setnx('my','hh'))  # 设置单个不存在的键值对
-    print(con.mset({'my':'cai'}))  # 设置多个键值对，返回true或false
-    print(con.msetnx({'you':'tan','my':'wan'})) # 为不存在的键设置值，如果有一个已经存在，整个会失败，返回false
+    print('''set:''',con.set('num', '3'))  # string类型的插入键值对,参数key，value；返回true或False
+    print('setex:',con.setex('name',3,'xiaobai')) # 设置一个有时间的键值对,返回true或false
+    print('setnx:',con.setnx('my','hh'))  # 设置单个不存在的键值对
+    print('mset:',con.mset({'my':'cai'}))  # 设置多个键值对，返回true或false
+    print('msetnx:',con.msetnx({'you':'tan','my':'wan'})) # 为不存在的键设置值，如果有一个已经存在，整个会失败，返回false
     #查
-    print(con.get('num'))       # 获取键的值，返回二进制的数据
-    print(con.getrange('name', 0, 2))  # 获取子串，参数key、下标范围
-    print(con.strlen('name'))  # 获取值的长度
-    print(con.exists('name')) # 是否存在这个键，针对所有的类型
+    print('get:',con.get('num'))       # 获取键的值，返回二进制的数据
+    print('getrange:',con.getrange('name', 0, 2))  # 获取子串，参数key、下标范围
+    print('strlen:',con.strlen('name'))  # 获取值的长度
+    print('exists:',con.exists('name')) # 是否存在这个键，针对所有的类型
     #改
-    print(con.incr('num'))      # 值自加操作，返回计算后的结果值
-    print(con.incr('num','23'))  # 值加一个整数操作，返回计算后的结果值，
-    print(con.incrby('num', '5')) # 值加一个整数操作，返回计算后的结果值
-    print(con.incrbyfloat('num', '3.5'))  # 值加一个浮点数操作，返回计算后的结果值
-    print(con.incrbyfloat('num', '-3.5'))  # 值加一个浮点数操作，返回计算后的结果值
-    print(con.decr('num'))  # 值自减操作，返回计算后的结果值
-    print(con.decr('num', '5'))  # 值减一个整数操作，返回计算后的结果值
-    print(con.append('boy', 'tom'))  # 字符串拼接，参数key value，返回当前字符串的长度
-    print(con.setrange('name', '5', 'hh'))  # 字符串替换字符，参数为键、偏移量、值，返回当前字符串的长度
+    print('incr 自增:',con.incr('num'))      # 值自加操作，返回计算后的结果值
+    print('incr加一个数:',con.incr('num','23'))  # 值加一个整数操作，返回计算后的结果值，
+    print('incrby:',con.incrby('num', '5')) # 值加一个整数操作，返回计算后的结果值
+    print('incrbyfloat:',con.incrbyfloat('num', '3.5'))  # 值加一个浮点数操作，返回计算后的结果值
+    print('incrbyfloat:',con.incrbyfloat('num', '-3.5'))  # 值加一个浮点数操作，返回计算后的结果值
+    print('decr自减:',con.decr('num'))  # 值自减操作，返回计算后的结果值
+    print('decr减一个数:',con.decr('num', '5'))  # 值减一个整数操作，返回计算后的结果值
+    print('append:',con.append('boy', 'tom'))  # 字符串拼接，参数key value，返回当前字符串的长度
+    print('setrange:',con.setrange('name', '5', 'hh'))  # 字符串替换字符，参数为键、偏移量、值，返回当前字符串的长度
     #删
-    print('删除多个键值对',con.delete('my','name'))  # #删除多个键值对，获取#删除成功的数量
+    print('''delete:''',con.delete('my','name'))  # #删除多个键值对，获取#删除成功的数量
 #redis操作list类型
 def redis_list():
     #增
@@ -93,25 +93,25 @@ def redis_hash():
 #redis操作集合
 def redis_collection():
     #增
-    print(con.sadd('name', 'a', 'b','bb','c'))  # 添加元素，返回添加的个数
+    print('''con.sadd('name', 'a', 'b','bb','c'):''',con.sadd('name', 'a', 'b','bb','c'))  # 添加元素，返回添加的个数
     #删
-    print(con.srem('name','a'))  # 移除元素，返回移除元素的数量
-    print(con.spop('name'))  # 随机的移除一个元素
+    print('''con.srem('name','a'):''',con.srem('name','a'))  # 移除元素，返回移除元素的数量
+    print('''con.spop('name'):''',con.spop('name'))  # 随机的移除一个元素
     #改
-    print(con.smove('name','name1','bb')) # 将bb从name移到name1，如果name1不存在，创建；返回true或false
+    print('''con.smove('name','name1','bb'):''',con.smove('name','name1','bb')) # 将bb从name移到name1，如果name1不存在，创建；返回true或false
     #查
-    print(con.smembers('name'))  # 返回集合所有的元素，以字典的形式
-    print(con.scard('name'))  # 返回集合元素的个数
-    print(con.sismember('name','b')) # #查看元素是否在集合中，返回true或false
+    print('''con.smembers('name'):''',con.smembers('name'))  # 返回集合所有的元素，以字典的形式
+    print('''con.scard('name'):''',con.scard('name'))  # 返回集合元素的个数
+    print('''con.sismember('name','b'):''',con.sismember('name','b')) # #查看元素是否在集合中，返回true或false
 
 def redis_other():
     con.flushdb()  # 清除当前数据库
     con.flushall()  # 清空当前redis
     con.set('other','other')
     con.expire('name', 3)  # 单位为秒,为键设置过期时间
-    print(con.time() ) # 查看服务器时间，返回时间戳和当前已过去的微秒数
-    print(con.ttl('other') ) # 查看键还有多少生存期，时间单位为秒
-    print(con.keys())  # 查看所有的键，默认参数为'*'
+    print('''con.time():''',con.time() ) # 查看服务器时间，返回时间戳和当前已过去的微秒数
+    print('''con.ttl('other'):''',con.ttl('other') ) # 查看键还有多少生存期，时间单位为秒
+    print('''con.keys():''',con.keys())  # 查看所有的键，默认参数为'*'
 
 
 # 按命令行的方式写redis
@@ -127,7 +127,7 @@ def redis_pipeline():
     pipe.get('name')
     # 提交
     pipe.execute()
-    print(con.get('name'))
+    print('''con.get('name'):''',con.get('name'))
 
 if __name__=='__main__':
     redis_string()
